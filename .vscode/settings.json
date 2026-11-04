@@ -12,5 +12,6 @@
                 "$env:Path = \"$HOME\\.local\\bin;C:\\Program Files\\Git\\cmd;$env:Path\"; if (Test-Path 'c:\\AI Project\\.venv\\Scripts\\Activate.ps1') { . 'c:\\AI Project\\.venv\\Scripts\\Activate.ps1' } elseif (Test-Path 'c:\\AI Project\\TCN\\.venv\\Scripts\\Activate.ps1') { . 'c:\\AI Project\\TCN\\.venv\\Scripts\\Activate.ps1' }"
             ]
         }
-    }
+    },
+    "git.ignoreLimitWarning": true
 }

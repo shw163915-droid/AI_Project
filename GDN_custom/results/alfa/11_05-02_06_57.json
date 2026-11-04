@@ -1,0 +1,598 @@
+{
+  "dataset": "alfa",
+  "episode_window_enabled": true,
+  "ewma_alpha": 0.3,
+  "model_path": "./pretrained/alfa/best_11_05-02_06_57.pt",
+  "train_config": {
+    "batch": 32,
+    "epoch": 500,
+    "slide_win": 15,
+    "dim": 128,
+    "slide_stride": 1,
+    "comment": "alfa_gdn",
+    "seed": 42,
+    "out_layer_num": 2,
+    "out_layer_inter_dim": 128,
+    "decay": 0,
+    "val_ratio": 0.1,
+    "topk": 12
+  },
+  "best_metrics": {
+    "f1": 0.4953735831598427,
+    "precision": 0.445774354704413,
+    "recall": 0.5574645320838214,
+    "auroc": 0.735024739390133,
+    "threshold": 2.302221544063299
+  },
+  "val_metrics": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "auroc": 0.735024739390133,
+    "threshold": 52.296707161928715
+  },
+  "per_flight_summary": [
+    {
+      "sequence": "carbonZ_2018-07-18-15-53-31_1_engine_failure",
+      "num_windows": 1308,
+      "f1_at_global_th": 0.5512,
+      "auroc": 0.8774,
+      "detection_latency_sec": 0.8
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-15-53-31_2_engine_failure",
+      "num_windows": 870,
+      "f1_at_global_th": 0.6457,
+      "auroc": 0.9492,
+      "detection_latency_sec": 6.1
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-16-22-01_engine_failure_with_emr_traj",
+      "num_windows": 1309,
+      "f1_at_global_th": 0.2968,
+      "auroc": 0.764,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-16-37-39_2_engine_failure_with_emr_traj",
+      "num_windows": 1285,
+      "f1_at_global_th": 0.6761,
+      "auroc": 0.935,
+      "detection_latency_sec": 0.3
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-29-45_engine_failure_with_emr_traj",
+      "num_windows": 1402,
+      "f1_at_global_th": 0.7387,
+      "auroc": 0.9803,
+      "detection_latency_sec": 1.6
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-39-00_1_engine_failure",
+      "num_windows": 1296,
+      "f1_at_global_th": 0.3858,
+      "auroc": 0.8282,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-39-00_2_engine_failure",
+      "num_windows": 1043,
+      "f1_at_global_th": 0.4019,
+      "auroc": 0.7546,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-10-45_engine_failure_with_emr_traj",
+      "num_windows": 1312,
+      "f1_at_global_th": 0.5522,
+      "auroc": 0.9015,
+      "detection_latency_sec": 0.4
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-20-01_engine_failure_with_emr_traj",
+      "num_windows": 1048,
+      "f1_at_global_th": 0.7339,
+      "auroc": 0.9429,
+      "detection_latency_sec": 0.5
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-36-35_engine_failure_with_emr_traj",
+      "num_windows": 1549,
+      "f1_at_global_th": 0.615,
+      "auroc": 0.9524,
+      "detection_latency_sec": 0.4
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-46-31_engine_failure_with_emr_traj",
+      "num_windows": 1106,
+      "f1_at_global_th": 0.6166,
+      "auroc": 0.887,
+      "detection_latency_sec": 0.7
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-11-56-30_engine_failure",
+      "num_windows": 1227,
+      "f1_at_global_th": 0.5451,
+      "auroc": 0.8546,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-22-07_1_engine_failure",
+      "num_windows": 1124,
+      "f1_at_global_th": 0.3459,
+      "auroc": 0.8728,
+      "detection_latency_sec": 1.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-22-07_2_engine_failure",
+      "num_windows": 608,
+      "f1_at_global_th": 0.3556,
+      "auroc": 0.7059,
+      "detection_latency_sec": 1.7
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-41-51_elevator_failure",
+      "num_windows": 1268,
+      "f1_at_global_th": 0.6692,
+      "auroc": 0.9261,
+      "detection_latency_sec": 1.6
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-52-54_left_aileron__right_aileron__failure",
+      "num_windows": 2317,
+      "f1_at_global_th": 0.0934,
+      "auroc": 0.5401,
+      "detection_latency_sec": 2.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-05-11_1_elevator_failure",
+      "num_windows": 742,
+      "f1_at_global_th": 0.5268,
+      "auroc": 0.7291,
+      "detection_latency_sec": 4.5
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_1_rudder_right_failure",
+      "num_windows": 684,
+      "f1_at_global_th": 0.7867,
+      "auroc": 0.9908,
+      "detection_latency_sec": 0.2
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_2_rudder_right_failure",
+      "num_windows": 676,
+      "f1_at_global_th": 0.8028,
+      "auroc": 0.9972,
+      "detection_latency_sec": 0.1
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_3_rudder_left_failure",
+      "num_windows": 678,
+      "f1_at_global_th": 0.9474,
+      "auroc": 0.9925,
+      "detection_latency_sec": 0.2
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-27-13_1_rudder_zero__left_aileron_failure",
+      "num_windows": 1417,
+      "f1_at_global_th": 0.3621,
+      "auroc": 0.8675,
+      "detection_latency_sec": 10.6
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-27-13_2_both_ailerons_failure",
+      "num_windows": 1000,
+      "f1_at_global_th": 0.8555,
+      "auroc": 0.9669,
+      "detection_latency_sec": 3.2
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-55-30_1_right_aileron_failure",
+      "num_windows": 1315,
+      "f1_at_global_th": 0.0306,
+      "auroc": 0.4124,
+      "detection_latency_sec": 12.1
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-55-30_2_left_aileron_failure",
+      "num_windows": 797,
+      "f1_at_global_th": 0.5815,
+      "auroc": 0.6819,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-34-20_2_right_aileron_failure_with_emr_traj",
+      "num_windows": 1603,
+      "f1_at_global_th": 0.3401,
+      "auroc": 0.8513,
+      "detection_latency_sec": 1.5
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-37-22_2_right_aileron_failure",
+      "num_windows": 1430,
+      "f1_at_global_th": 0.3855,
+      "auroc": 0.6627,
+      "detection_latency_sec": 0.6
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-37-22_3_left_aileron_failure",
+      "num_windows": 945,
+      "f1_at_global_th": 0.3737,
+      "auroc": 0.7619,
+      "detection_latency_sec": 2.9
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-15-52-12_3_engine_failure_with_emr_traj",
+      "num_windows": 648,
+      "f1_at_global_th": 0.5796,
+      "auroc": 0.7217,
+      "detection_latency_sec": 2.2
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-15-55-10_engine_failure_with_emr_traj",
+      "num_windows": 1112,
+      "f1_at_global_th": 0.5577,
+      "auroc": 0.8684,
+      "detection_latency_sec": 1.4
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-16-04-46_engine_failure_with_emr_traj",
+      "num_windows": 902,
+      "f1_at_global_th": 0.4409,
+      "auroc": 0.8083,
+      "detection_latency_sec": 1.4
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-03-57_engine_failure_with_emr_traj",
+      "num_windows": 1146,
+      "f1_at_global_th": 0.6725,
+      "auroc": 0.9654,
+      "detection_latency_sec": 0.2
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-00_engine_failure_with_emr_traj",
+      "num_windows": 1208,
+      "f1_at_global_th": 0.6029,
+      "auroc": 0.9438,
+      "detection_latency_sec": 0.3
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-08_1_engine_failure_with_emr_traj",
+      "num_windows": 1129,
+      "f1_at_global_th": 0.3663,
+      "auroc": 0.6946,
+      "detection_latency_sec": 0.5
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-08_2_engine_failure_with_emr_traj",
+      "num_windows": 1160,
+      "f1_at_global_th": 0.5344,
+      "auroc": 0.8841,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-35_engine_failure_with_emr_traj",
+      "num_windows": 1073,
+      "f1_at_global_th": 0.5736,
+      "auroc": 0.9764,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-06-06_engine_failure_with_emr_traj",
+      "num_windows": 1149,
+      "f1_at_global_th": 0.5934,
+      "auroc": 0.923,
+      "detection_latency_sec": 0.0
+    }
+  ],
+  "learned_graph_topk": {
+    "roll_cmd": [
+      "roll_cmd",
+      "vel_meas_z",
+      "roll_err",
+      "altitude_rel",
+      "accel_z",
+      "throttle",
+      "yaw_sin",
+      "roll_meas",
+      "yaw_cos",
+      "pitch_err",
+      "accel_y",
+      "yaw_err"
+    ],
+    "roll_meas": [
+      "roll_meas",
+      "throttle",
+      "yaw_err",
+      "altitude_rel",
+      "yaw_sin",
+      "yaw_cos",
+      "accel_y",
+      "climb_rate",
+      "pitch_err",
+      "accel_x",
+      "pitch_cmd",
+      "pitch_meas"
+    ],
+    "roll_err": [
+      "roll_err",
+      "accel_z",
+      "vel_meas_z",
+      "gyro_x",
+      "gyro_y",
+      "accel_x",
+      "vel_err_z",
+      "groundspeed",
+      "climb_rate",
+      "roll_cmd",
+      "vel_des_z",
+      "yaw_cos"
+    ],
+    "pitch_cmd": [
+      "pitch_cmd",
+      "accel_y",
+      "pitch_err",
+      "climb_rate",
+      "accel_x",
+      "yaw_err",
+      "vel_err_z",
+      "gyro_z",
+      "pitch_meas",
+      "gyro_x",
+      "roll_meas",
+      "throttle"
+    ],
+    "pitch_meas": [
+      "pitch_meas",
+      "climb_rate",
+      "gyro_x",
+      "accel_y",
+      "yaw_err",
+      "accel_x",
+      "groundspeed",
+      "pitch_cmd",
+      "vel_err_z",
+      "gyro_z",
+      "pitch_err",
+      "yaw_cos"
+    ],
+    "pitch_err": [
+      "pitch_err",
+      "pitch_cmd",
+      "accel_x",
+      "accel_y",
+      "throttle",
+      "roll_meas",
+      "yaw_err",
+      "climb_rate",
+      "pitch_meas",
+      "altitude_rel",
+      "vel_err_z",
+      "yaw_sin"
+    ],
+    "yaw_sin": [
+      "yaw_sin",
+      "roll_meas",
+      "yaw_err",
+      "yaw_cos",
+      "altitude_rel",
+      "throttle",
+      "climb_rate",
+      "vel_err_z",
+      "pitch_cmd",
+      "accel_y",
+      "groundspeed",
+      "accel_x"
+    ],
+    "yaw_cos": [
+      "yaw_cos",
+      "roll_meas",
+      "throttle",
+      "yaw_sin",
+      "yaw_err",
+      "accel_x",
+      "pitch_meas",
+      "groundspeed",
+      "accel_y",
+      "gyro_x",
+      "climb_rate",
+      "pitch_cmd"
+    ],
+    "yaw_err": [
+      "yaw_err",
+      "accel_y",
+      "roll_meas",
+      "pitch_cmd",
+      "climb_rate",
+      "pitch_meas",
+      "altitude_rel",
+      "accel_x",
+      "yaw_sin",
+      "groundspeed",
+      "throttle",
+      "yaw_cos"
+    ],
+    "vel_des_z": [
+      "vel_des_z",
+      "gyro_x",
+      "climb_rate",
+      "gyro_z",
+      "yaw_sin",
+      "pitch_meas",
+      "yaw_cos",
+      "vel_err_z",
+      "groundspeed",
+      "accel_x",
+      "gyro_y",
+      "yaw_err"
+    ],
+    "vel_meas_z": [
+      "vel_meas_z",
+      "roll_err",
+      "accel_y",
+      "pitch_meas",
+      "pitch_err",
+      "accel_z",
+      "vel_err_z",
+      "accel_x",
+      "altitude_rel",
+      "groundspeed",
+      "roll_cmd",
+      "pitch_cmd"
+    ],
+    "vel_err_z": [
+      "vel_err_z",
+      "climb_rate",
+      "accel_y",
+      "gyro_x",
+      "pitch_cmd",
+      "gyro_z",
+      "accel_x",
+      "pitch_meas",
+      "yaw_sin",
+      "yaw_err",
+      "throttle",
+      "groundspeed"
+    ],
+    "gyro_x": [
+      "gyro_x",
+      "climb_rate",
+      "vel_err_z",
+      "pitch_meas",
+      "accel_x",
+      "accel_y",
+      "pitch_cmd",
+      "gyro_z",
+      "throttle",
+      "yaw_cos",
+      "yaw_err",
+      "groundspeed"
+    ],
+    "gyro_y": [
+      "gyro_y",
+      "gyro_z",
+      "accel_y",
+      "accel_x",
+      "climb_rate",
+      "pitch_meas",
+      "vel_err_z",
+      "gyro_x",
+      "pitch_cmd",
+      "vel_des_z",
+      "pitch_err",
+      "groundspeed"
+    ],
+    "gyro_z": [
+      "gyro_z",
+      "pitch_cmd",
+      "vel_err_z",
+      "accel_y",
+      "climb_rate",
+      "pitch_meas",
+      "groundspeed",
+      "yaw_err",
+      "gyro_x",
+      "accel_x",
+      "gyro_y",
+      "roll_meas"
+    ],
+    "accel_x": [
+      "accel_x",
+      "climb_rate",
+      "accel_y",
+      "pitch_cmd",
+      "pitch_err",
+      "throttle",
+      "pitch_meas",
+      "vel_err_z",
+      "gyro_x",
+      "yaw_err",
+      "roll_meas",
+      "yaw_cos"
+    ],
+    "accel_y": [
+      "accel_y",
+      "accel_x",
+      "climb_rate",
+      "pitch_cmd",
+      "yaw_err",
+      "vel_err_z",
+      "pitch_meas",
+      "pitch_err",
+      "gyro_z",
+      "throttle",
+      "gyro_x",
+      "roll_meas"
+    ],
+    "accel_z": [
+      "accel_z",
+      "roll_err",
+      "vel_meas_z",
+      "vel_des_z",
+      "gyro_x",
+      "vel_err_z",
+      "groundspeed",
+      "yaw_cos",
+      "climb_rate",
+      "accel_x",
+      "roll_cmd",
+      "yaw_sin"
+    ],
+    "groundspeed": [
+      "groundspeed",
+      "pitch_meas",
+      "yaw_err",
+      "climb_rate",
+      "accel_y",
+      "gyro_z",
+      "accel_x",
+      "throttle",
+      "yaw_sin",
+      "vel_err_z",
+      "yaw_cos",
+      "pitch_cmd"
+    ],
+    "throttle": [
+      "throttle",
+      "roll_meas",
+      "accel_x",
+      "yaw_cos",
+      "pitch_err",
+      "yaw_err",
+      "accel_y",
+      "yaw_sin",
+      "climb_rate",
+      "pitch_cmd",
+      "altitude_rel",
+      "gyro_x"
+    ],
+    "altitude_rel": [
+      "altitude_rel",
+      "roll_meas",
+      "yaw_err",
+      "yaw_sin",
+      "throttle",
+      "accel_y",
+      "climb_rate",
+      "pitch_err",
+      "accel_x",
+      "pitch_meas",
+      "yaw_cos",
+      "pitch_cmd"
+    ],
+    "climb_rate": [
+      "climb_rate",
+      "accel_x",
+      "pitch_meas",
+      "vel_err_z",
+      "accel_y",
+      "gyro_x",
+      "pitch_cmd",
+      "yaw_err",
+      "gyro_z",
+      "roll_meas",
+      "groundspeed",
+      "throttle"
+    ]
+  }
+}
