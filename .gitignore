@@ -58,21 +58,31 @@ conda-meta/
 checkpoints/
 weights/
 saved_models/
+pretrained/
 
-# Datasets & Archives
-*.csv
-*.tsv
-*.parquet
-*.feather
+# Large Raw Datasets & Archives (Exclude 800MB raw ALFA files)
 *.zip
 *.tar
 *.tar.gz
 *.tgz
 *.rar
 *.7z
-data/
-dataset/
-datasets/
+*.bag
+*.mat
+dataset/ALFA/processed/
+dataset/ALFA/raw/
+Time-Series-Library/dataset/
+
+# Keep converted GDN_custom ALFA data & GDN sample data for cross-PC portability
+!GDN_custom/data/
+!GDN_custom/data/alfa/
+!GDN_custom/data/alfa/*.csv
+!GDN_custom/data/alfa/*.txt
+!GDN/data/
+!GDN/data/msl/
+!GDN/data/msl/*.csv
+!GDN/data/msl/*.txt
+!dataset/ALFA/README.md
 
 # Training logs & Experiment tracking
 runs/
@@ -81,6 +91,8 @@ wandb/
 mlruns/
 lightning_logs/
 outputs/
+results/
+test_results/
 *.log
 events.out.tfevents.*
 
