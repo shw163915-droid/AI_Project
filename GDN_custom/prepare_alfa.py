@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-ALFA 데이터셋 -> GDN 입력 포맷(train.csv, test.csv, list.txt) 변환 스크립트
+ALFA 데이터셋 -> GDN 입력 포맷(train.csv, test.csv, list.txt) 변환 스크립트 (2번 개선안 적용)
 - 원본 ALFA 데이터셋(C:/AI Project/dataset/ALFA/processed)은 수정하지 않음
-- GDN 공식 전처리(GDN/scripts/process_swat.py) 규격(MinMaxScaler [0, 1], index_col=0, attack 라벨) 준수
+- [2번 개선안]:
+  1) 비행별 초기 고도 오프셋 제거 (해발 고도 -> 비행 시작 기준 상대 고도 변화량 altitude_rel)
+  2) 방위각(yaw) +-180도 점프(Wrap-around) 보정 및 최단 각도 오차(yaw_err) 산출
+  3) 조종 명령(cmd)과 실제 측정값(meas) 간의 추종 오차(roll_err, pitch_err, yaw_err, airspeed_err, vel_err_z) 반영
 """
 
-import os
-import glob
 import argparse
 import numpy as np
 import pandas as pd
@@ -14,7 +15,6 @@ from pathlib import Path
 from sklearn.preprocessing import MinMaxScaler
 
 
-# 추출할 ALFA 토픽 파일 접미사 및 컬럼 매핑 (총 24개 고정익 비행 역학/제어 센서 노드)
 TOPIC_SPECS = [
     (
         "mavros-nav_info-roll.csv",
@@ -77,19 +77,36 @@ TOPIC_SPECS = [
     ),
 ]
 
-
-def get_feature_names():
-    names = []
-    for _, col_map in TOPIC_SPECS:
-        names.extend(col_map.values())
-    return names
+# 2번 개선이 반영된 최종 22개 센서 노드 목록
+# (참고: ALFA 데이터셋에서 2018-09-11 이후 33개 비행은 피토관 센서 비활성화로 airspeed_meas=0.0 고정,
+#  airspeed_cmd는 15/16 상수이므로 결측/상수 왜곡을 일으키는 airspeed 3개 채널을 제외하고 groundspeed 사용)
+FINAL_FEATURE_COLS = [
+    "roll_cmd",
+    "roll_meas",
+    "roll_err",
+    "pitch_cmd",
+    "pitch_meas",
+    "pitch_err",
+    "yaw_sin",
+    "yaw_cos",
+    "yaw_err",
+    "vel_des_z",
+    "vel_meas_z",
+    "vel_err_z",
+    "gyro_x",
+    "gyro_y",
+    "gyro_z",
+    "accel_x",
+    "accel_y",
+    "accel_z",
+    "groundspeed",
+    "throttle",
+    "altitude_rel",
+    "climb_rate",
+]
 
 
 def find_fault_onset_ns(seq_dir: Path):
-    """
-    시퀀스 폴더 내 *-failure_status-*.csv 파일에서 결함이 최초 발생한 나노초(%time) 반환.
-    정상 비행(no_failure)이면 None 반환.
-    """
     fault_files = list(seq_dir.glob("*-failure_status-*.csv"))
     if not fault_files:
         return None
@@ -110,10 +127,33 @@ def find_fault_onset_ns(seq_dir: Path):
     return min(onset_times) if onset_times else None
 
 
+def apply_domain_engineering(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    [2번 개선안 핵심 로직]
+    1) 비행 시작 구간(초반 2초) 기준 상대 고도(altitude_rel)로 오프셋 제거
+    2) 방위각(yaw) +-180도 불연속 점프 제거 (sin/cos 분해 및 최단 각도 오차 yaw_err 계산)
+    3) 명령-응답 추종 오차(roll_err, pitch_err, airspeed_err, vel_err_z) 산출
+    """
+    # 1. 비행별 초기 고도 오프셋 보정 (초반 20틱=2초 중앙값 기준)
+    init_alt = df["altitude"].iloc[:20].median()
+    df["altitude_rel"] = df["altitude"] - init_alt
+
+    # 2. 방위각(yaw) 연속화 및 최단 회전 오차(-180 ~ +180) 계산
+    yaw_rad = np.deg2rad(df["yaw_meas"].values)
+    df["yaw_sin"] = np.sin(yaw_rad)
+    df["yaw_cos"] = np.cos(yaw_rad)
+    df["yaw_err"] = ((df["yaw_cmd"] - df["yaw_meas"] + 180.0) % 360.0) - 180.0
+
+    # 3. 명령값(cmd) - 실제 측정값(meas) 추종 오차 계산
+    df["roll_err"] = df["roll_cmd"] - df["roll_meas"]
+    df["pitch_err"] = df["pitch_cmd"] - df["pitch_meas"]
+    df["airspeed_err"] = df["airspeed_cmd"] - df["airspeed_meas"]
+    df["vel_err_z"] = df["vel_des_z"] - df["vel_meas_z"]
+
+    return df
+
+
 def load_and_align_sequence(seq_dir: Path, freq_hz: int = 10):
-    """
-    단일 비행 시퀀스 폴더의 다중 센서 CSV 파일들을 공통 시간 그리드(freq_hz)로 선형 보간 정렬.
-    """
     seq_name = seq_dir.name
     topic_dfs = []
     start_times = []
@@ -122,7 +162,6 @@ def load_and_align_sequence(seq_dir: Path, freq_hz: int = 10):
     for suffix, col_map in TOPIC_SPECS:
         csv_path = seq_dir / f"{seq_name}-{suffix}"
         if not csv_path.exists():
-            # 일부 시퀀스에 특정 파일이 누락된 경우 스킵 처리용
             return None
 
         df = pd.read_csv(csv_path)
@@ -137,7 +176,6 @@ def load_and_align_sequence(seq_dir: Path, freq_hz: int = 10):
         end_times.append(df["%time"].iloc[-1])
         topic_dfs.append(df)
 
-    # 모든 센서가 공통으로 존재하는 시간 구간 설정
     t_start = max(start_times)
     t_end = min(end_times)
     if t_end <= t_start:
@@ -159,14 +197,22 @@ def load_and_align_sequence(seq_dir: Path, freq_hz: int = 10):
 
     aligned_df = pd.DataFrame(aligned_data)
 
-    # 결함 라벨(attack: 0.0 정상, 1.0 결함) 부여
+    # 2번 개선: 도메인 피처 및 오프셋 보정 적용
+    aligned_df = apply_domain_engineering(aligned_df)
+
+    # 비행 시작 후 경과 시간(초) 계산
+    aligned_df["flight_time_sec"] = np.round((aligned_df["time_ns"] - t_start) / 1e9, 2)
+
     fault_onset_ns = find_fault_onset_ns(seq_dir)
     if fault_onset_ns is not None:
         aligned_df["attack"] = (aligned_df["time_ns"] >= fault_onset_ns).astype(np.float64)
+        fault_onset_sec = round(max(0.0, (fault_onset_ns - t_start) / 1e9), 2)
     else:
         aligned_df["attack"] = 0.0
+        fault_onset_sec = None
 
     aligned_df["sequence"] = seq_name
+    aligned_df.attrs["fault_onset_sec"] = fault_onset_sec
     return aligned_df
 
 
@@ -176,7 +222,7 @@ def prepare_alfa_dataset(
     freq_hz: int = 10,
 ):
     seq_dirs = sorted([d for d in alfa_root.iterdir() if d.is_dir()])
-    feature_cols = get_feature_names()
+    feature_cols = FINAL_FEATURE_COLS
 
     train_dfs = []
     test_dfs = []
@@ -187,17 +233,16 @@ def prepare_alfa_dataset(
     for seq_dir in seq_dirs:
         seq_name = seq_dir.name
         if "no_ground_truth" in seq_name:
-            print(f"  - Skipping {seq_name} (no ground truth)")
             continue
 
         aligned_df = load_and_align_sequence(seq_dir, freq_hz=freq_hz)
         if aligned_df is None:
-            print(f"  - Skipping {seq_name} (missing required topics or too short)")
             continue
 
         is_normal_flight = seq_name.endswith("_no_failure")
         n_rows = len(aligned_df)
         n_anom = int(aligned_df["attack"].sum())
+        fault_onset_sec = aligned_df.attrs.get("fault_onset_sec", None)
 
         if is_normal_flight:
             train_dfs.append(aligned_df)
@@ -211,6 +256,8 @@ def prepare_alfa_dataset(
                 "sequence": seq_name,
                 "split": split_type,
                 "num_samples": n_rows,
+                "duration_sec": round(n_rows / freq_hz, 1),
+                "fault_onset_sec": fault_onset_sec,
                 "num_anomaly_samples": n_anom,
                 "anomaly_ratio": round(n_anom / max(n_rows, 1), 4),
             }
@@ -219,56 +266,43 @@ def prepare_alfa_dataset(
     train_full = pd.concat(train_dfs, ignore_index=True)
     test_full = pd.concat(test_dfs, ignore_index=True)
 
-    # 결측치 방어 처리
     train_features = train_full[feature_cols].ffill().bfill().fillna(0.0)
     test_features = test_full[feature_cols].ffill().bfill().fillna(0.0)
 
-    # GDN 공식 전처리(process_swat.py)와 동일하게 정상 학습 데이터 기준 MinMaxScaler(0, 1) 정규화
     scaler = MinMaxScaler(feature_range=(0, 1))
     x_train_scaled = scaler.fit_transform(train_features.values)
     x_test_scaled = scaler.transform(test_features.values)
 
-    # 테스트 데이터의 극단적 이상치가 스케일러 범위를 과도하게 벗어나 수치 불안정을 일으키지 않도록 완만한 클리핑 옵션 적용 가능하나
-    # GDN 편차 계산을 위해 원본 변환값 유지
     train_out_df = pd.DataFrame(x_train_scaled, columns=feature_cols)
     test_out_df = pd.DataFrame(x_test_scaled, columns=feature_cols)
     test_out_df["attack"] = test_full["attack"].values
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. list.txt 저장
     list_path = output_dir / "list.txt"
     with open(list_path, "w", encoding="utf-8") as f:
         for col in feature_cols:
             f.write(f"{col}\n")
 
-    # 2. train.csv & test.csv 저장 (GDN의 pd.read_csv(..., index_col=0) 규격 준수)
-    train_csv_path = output_dir / "train.csv"
-    test_csv_path = output_dir / "test.csv"
-    train_out_df.to_csv(train_csv_path, index=True)
-    test_out_df.to_csv(test_csv_path, index=True)
+    train_out_df.to_csv(output_dir / "train.csv", index=True)
+    test_out_df.to_csv(output_dir / "test.csv", index=True)
 
-    # 3. 시퀀스별 메타정보 및 테스트 시퀀스 매핑 저장 (추후 비행별/결함별 상세 분석용)
     meta_df = pd.DataFrame(meta_records)
     meta_df.to_csv(output_dir / "sequence_summary.csv", index=False)
-    test_full[["time_ns", "sequence", "attack"]].to_csv(
+    test_full[["time_ns", "flight_time_sec", "sequence", "attack"]].to_csv(
         output_dir / "test_sequence_map.csv", index=True
     )
 
-    print("\n==================== ALFA -> GDN 변환 완료 ====================")
+    print("\n=============== ALFA -> GDN 변환 완료 (2번 개선안 적용) ===============")
     print(f"저장 경로       : {output_dir}")
     print(f"센서 노드 수    : {len(feature_cols)} 개 (list.txt)")
     print(f"정상 비행(Train): {len(train_dfs)} 개 시퀀스, 총 {len(train_out_df):,} 시점 (train.csv)")
     print(f"결함 비행(Test) : {len(test_dfs)} 개 시퀀스, 총 {len(test_out_df):,} 시점 (test.csv)")
-    print(
-        f"Test 내 이상비율: {int(test_out_df['attack'].sum()):,} / {len(test_out_df):,} "
-        f"({test_out_df['attack'].mean() * 100:.2f}%)"
-    )
-    print("===============================================================")
+    print("=======================================================================")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert ALFA dataset to GDN format")
+    parser = argparse.ArgumentParser(description="Convert ALFA dataset to GDN format with Step 2 improvements")
     parser.add_argument(
         "--alfa_root",
         type=str,
@@ -294,4 +328,3 @@ if __name__ == "__main__":
         output_dir=Path(args.output_dir),
         freq_hz=args.freq_hz,
     )
-
