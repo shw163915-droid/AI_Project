@@ -1,0 +1,12 @@
+# Allow tracking .venv while excluding >95MB CUDA DLLs rejected by GitHub
+Lib/site-packages/torch/lib/cublas64_12.dll
+Lib/site-packages/torch/lib/cublasLt64_12.dll
+Lib/site-packages/torch/lib/cudnn_adv64_9.dll
+Lib/site-packages/torch/lib/cudnn_engines_precompiled64_9.dll
+Lib/site-packages/torch/lib/cudnn_ops64_9.dll
+Lib/site-packages/torch/lib/cufft64_11.dll
+Lib/site-packages/torch/lib/cusolver64_11.dll
+Lib/site-packages/torch/lib/cusolverMg64_11.dll
+Lib/site-packages/torch/lib/cusparse64_12.dll
+Lib/site-packages/torch/lib/torch_cpu.dll
+Lib/site-packages/torch/lib/torch_cuda.dll

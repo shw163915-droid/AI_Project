@@ -2,21 +2,3 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Virtual environments (GitHub blocks >100MB CUDA DLLs inside .venv/Lib/site-packages/torch/lib/)
-.venv/Lib/site-packages/torch/lib/*.dll
-.venv/Lib/site-packages/triton/
-.venv/Lib/site-packages/nvidia/
-!requirements.txt
-!.vscode/
-!GDN_custom/pretrained/
-!GDN_custom/results/
-!TCN/
-!Time-Series-Library/dataset/
-!Time-Series-Library/checkpoints/
-!Time-Series-Library/results/
-!dataset/ALFA/processed/
-.idea/
-.DS_Store
-Thumbs.db
-
