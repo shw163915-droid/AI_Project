@@ -1,0 +1,274 @@
+{
+  "dataset": "alfa",
+  "model_path": "./pretrained/alfa/best_11_05-00_23_19.pt",
+  "train_config": {
+    "batch": 128,
+    "epoch": 15,
+    "slide_win": 15,
+    "dim": 64,
+    "slide_stride": 1,
+    "comment": "alfa_gdn",
+    "seed": 42,
+    "out_layer_num": 1,
+    "out_layer_inter_dim": 128,
+    "decay": 0,
+    "val_ratio": 0.1,
+    "topk": 8
+  },
+  "best_metrics": {
+    "f1": 0.5617283950617284,
+    "precision": 0.5550330452465684,
+    "recall": 0.5683977612911623,
+    "auroc": 0.7227178951699964,
+    "threshold": 2.6545167417586057
+  },
+  "val_metrics": {
+    "f1": 0.10694798108403056,
+    "precision": 0.7819148936170213,
+    "recall": 0.05739945333853963,
+    "auroc": 0.7227178951699964,
+    "threshold": 5.548975555199998
+  },
+  "learned_graph_topk": {
+    "roll_cmd": [
+      "roll_cmd",
+      "roll_meas",
+      "airspeed_cmd",
+      "gyro_x",
+      "yaw_meas",
+      "vel_des_y",
+      "vel_des_x",
+      "yaw_cmd"
+    ],
+    "roll_meas": [
+      "roll_meas",
+      "roll_cmd",
+      "airspeed_cmd",
+      "yaw_meas",
+      "vel_meas_x",
+      "pitch_meas",
+      "vel_meas_y",
+      "airspeed_meas"
+    ],
+    "pitch_cmd": [
+      "pitch_cmd",
+      "throttle",
+      "vel_des_x",
+      "vel_des_y",
+      "accel_x",
+      "groundspeed",
+      "gyro_z",
+      "gyro_x"
+    ],
+    "pitch_meas": [
+      "pitch_meas",
+      "airspeed_meas",
+      "gyro_x",
+      "vel_meas_z",
+      "climb_rate",
+      "yaw_meas",
+      "vel_meas_y",
+      "altitude"
+    ],
+    "yaw_cmd": [
+      "yaw_cmd",
+      "vel_meas_y",
+      "vel_des_z",
+      "climb_rate",
+      "roll_cmd",
+      "vel_des_x",
+      "gyro_y",
+      "airspeed_meas"
+    ],
+    "yaw_meas": [
+      "yaw_meas",
+      "vel_des_y",
+      "vel_meas_y",
+      "altitude",
+      "roll_cmd",
+      "airspeed_cmd",
+      "gyro_x",
+      "roll_meas"
+    ],
+    "airspeed_cmd": [
+      "airspeed_cmd",
+      "roll_cmd",
+      "roll_meas",
+      "vel_des_y",
+      "yaw_meas",
+      "airspeed_meas",
+      "vel_des_z",
+      "vel_meas_y"
+    ],
+    "airspeed_meas": [
+      "airspeed_meas",
+      "vel_des_z",
+      "pitch_meas",
+      "accel_z",
+      "airspeed_cmd",
+      "gyro_x",
+      "gyro_y",
+      "vel_des_y"
+    ],
+    "vel_des_x": [
+      "vel_des_x",
+      "vel_meas_y",
+      "vel_des_z",
+      "roll_cmd",
+      "pitch_cmd",
+      "airspeed_cmd",
+      "yaw_cmd",
+      "gyro_z"
+    ],
+    "vel_des_y": [
+      "vel_des_y",
+      "yaw_meas",
+      "vel_meas_y",
+      "accel_z",
+      "vel_meas_z",
+      "gyro_z",
+      "airspeed_cmd",
+      "gyro_y"
+    ],
+    "vel_des_z": [
+      "vel_des_z",
+      "airspeed_meas",
+      "vel_des_x",
+      "yaw_cmd",
+      "accel_z",
+      "airspeed_cmd",
+      "climb_rate",
+      "gyro_x"
+    ],
+    "vel_meas_x": [
+      "vel_meas_x",
+      "airspeed_cmd",
+      "accel_x",
+      "accel_y",
+      "gyro_x",
+      "groundspeed",
+      "gyro_z",
+      "yaw_meas"
+    ],
+    "vel_meas_y": [
+      "vel_meas_y",
+      "vel_des_y",
+      "yaw_meas",
+      "vel_des_x",
+      "climb_rate",
+      "accel_z",
+      "yaw_cmd",
+      "airspeed_cmd"
+    ],
+    "vel_meas_z": [
+      "vel_meas_z",
+      "vel_des_y",
+      "gyro_x",
+      "gyro_y",
+      "pitch_meas",
+      "gyro_z",
+      "groundspeed",
+      "altitude"
+    ],
+    "gyro_x": [
+      "gyro_x",
+      "gyro_z",
+      "roll_cmd",
+      "accel_x",
+      "accel_z",
+      "vel_meas_z",
+      "yaw_meas",
+      "pitch_meas"
+    ],
+    "gyro_y": [
+      "gyro_y",
+      "groundspeed",
+      "accel_z",
+      "vel_des_y",
+      "altitude",
+      "vel_meas_z",
+      "gyro_z",
+      "airspeed_meas"
+    ],
+    "gyro_z": [
+      "gyro_z",
+      "gyro_x",
+      "accel_z",
+      "vel_des_y",
+      "yaw_meas",
+      "groundspeed",
+      "gyro_y",
+      "vel_meas_y"
+    ],
+    "accel_x": [
+      "accel_x",
+      "gyro_x",
+      "pitch_cmd",
+      "vel_meas_x",
+      "pitch_meas",
+      "airspeed_meas",
+      "yaw_cmd",
+      "vel_des_z"
+    ],
+    "accel_y": [
+      "accel_y",
+      "vel_meas_x",
+      "vel_des_x",
+      "vel_meas_y",
+      "vel_des_z",
+      "pitch_cmd",
+      "pitch_meas",
+      "groundspeed"
+    ],
+    "accel_z": [
+      "accel_z",
+      "vel_des_y",
+      "gyro_y",
+      "gyro_z",
+      "airspeed_meas",
+      "gyro_x",
+      "vel_meas_y",
+      "yaw_meas"
+    ],
+    "groundspeed": [
+      "groundspeed",
+      "gyro_y",
+      "gyro_z",
+      "accel_z",
+      "vel_meas_y",
+      "airspeed_meas",
+      "pitch_cmd",
+      "vel_meas_z"
+    ],
+    "throttle": [
+      "throttle",
+      "pitch_cmd",
+      "altitude",
+      "pitch_meas",
+      "vel_meas_x",
+      "groundspeed",
+      "yaw_meas",
+      "climb_rate"
+    ],
+    "altitude": [
+      "altitude",
+      "yaw_meas",
+      "gyro_y",
+      "throttle",
+      "vel_des_y",
+      "gyro_z",
+      "airspeed_meas",
+      "vel_meas_y"
+    ],
+    "climb_rate": [
+      "climb_rate",
+      "vel_meas_y",
+      "yaw_cmd",
+      "vel_des_z",
+      "pitch_meas",
+      "vel_des_y",
+      "yaw_meas",
+      "airspeed_cmd"
+    ]
+  }
+}

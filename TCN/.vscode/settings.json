@@ -1,0 +1,16 @@
+{
+    "python.defaultInterpreterPath": "c:/AI Project/.venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "terminal.integrated.defaultProfile.windows": "PowerShell (TCN venv)",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell (TCN venv)": {
+            "source": "PowerShell",
+            "args": [
+                "-NoExit",
+                "-Command",
+                "$env:Path = \"$HOME\\.local\\bin;C:\\Program Files\\Git\\cmd;$env:Path\"; if (Test-Path 'c:\\AI Project\\.venv\\Scripts\\Activate.ps1') { . 'c:\\AI Project\\.venv\\Scripts\\Activate.ps1' } elseif (Test-Path 'c:\\AI Project\\TCN\\.venv\\Scripts\\Activate.ps1') { . 'c:\\AI Project\\TCN\\.venv\\Scripts\\Activate.ps1' }"
+            ]
+        }
+    }
+}
