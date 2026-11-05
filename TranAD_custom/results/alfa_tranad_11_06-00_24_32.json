@@ -1,0 +1,292 @@
+{
+  "model": "TranAD",
+  "channels": [
+    "roll_cmd",
+    "pitch_cmd",
+    "yaw_cmd",
+    "throttle",
+    "roll_meas",
+    "pitch_meas",
+    "yaw_meas",
+    "gyro_x",
+    "gyro_y",
+    "gyro_z",
+    "accel_x",
+    "accel_y",
+    "accel_z",
+    "groundspeed",
+    "altitude",
+    "climb_rate"
+  ],
+  "metrics": {
+    "f1": 0.514518719881379,
+    "precision": 0.48976711362032466,
+    "recall": 0.5419052576782926,
+    "auroc": 0.7298497381966387,
+    "threshold": 0.001971819935005195,
+    "mean_flight_auroc": 0.8747003649470484,
+    "mean_latency_sec": 0.6485714285714286,
+    "detected_flights_count": 35
+  },
+  "per_flight_summary": [
+    {
+      "sequence": "carbonZ_2018-07-18-12-10-11_no_ground_truth",
+      "has_fault": false,
+      "auroc": 0.5,
+      "detected": false,
+      "detection_latency_sec": null
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-15-53-31_1_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9401507275107336,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-15-53-31_2_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9841432829310847,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-16-22-01_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.8844786276161615,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-18-16-37-39_2_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9599414235190097,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-29-45_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9527816532961284,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-39-00_1_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9714366244482825,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-16-39-00_2_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9140982606042112,
+      "detected": true,
+      "detection_latency_sec": 0.2
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-10-45_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9036247030618235,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-20-01_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9042123237187362,
+      "detected": true,
+      "detection_latency_sec": 0.1
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-36-35_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9150572106237131,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-07-30-17-46-31_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.930488177741541,
+      "detected": true,
+      "detection_latency_sec": 0.30000000000000004
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-11-56-30_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9851627418912658,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-22-07_1_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9909935897435898,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-22-07_2_engine_failure",
+      "has_fault": true,
+      "auroc": 0.9757406188281764,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-41-51_elevator_failure",
+      "has_fault": true,
+      "auroc": 0.9261477045908183,
+      "detected": true,
+      "detection_latency_sec": 1.1
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-14-52-54_left_aileron__right_aileron__failure",
+      "has_fault": true,
+      "auroc": 0.46872827780441034,
+      "detected": true,
+      "detection_latency_sec": 2.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-05-11_1_elevator_failure",
+      "has_fault": true,
+      "auroc": 0.7457837951081547,
+      "detected": true,
+      "detection_latency_sec": 2.1
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_1_rudder_right_failure",
+      "has_fault": true,
+      "auroc": 0.9983719983719984,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_2_rudder_right_failure",
+      "has_fault": true,
+      "auroc": 0.9884974920200639,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-15-06-34_3_rudder_left_failure",
+      "has_fault": true,
+      "auroc": 1.0,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-27-13_1_rudder_zero__left_aileron_failure",
+      "has_fault": true,
+      "auroc": 0.831087983039414,
+      "detected": true,
+      "detection_latency_sec": 1.5
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-27-13_2_both_ailerons_failure",
+      "has_fault": true,
+      "auroc": 0.9369956548727498,
+      "detected": true,
+      "detection_latency_sec": 1.8
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-55-30_1_right_aileron_failure",
+      "has_fault": true,
+      "auroc": 0.4505850585058506,
+      "detected": false,
+      "detection_latency_sec": null
+    },
+    {
+      "sequence": "carbonZ_2018-09-11-17-55-30_2_left_aileron_failure",
+      "has_fault": true,
+      "auroc": 0.32739960311243405,
+      "detected": true,
+      "detection_latency_sec": 5.1000000000000005
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-34-20_2_right_aileron_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9306040537828617,
+      "detected": true,
+      "detection_latency_sec": 0.5
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-37-22_2_right_aileron_failure",
+      "has_fault": true,
+      "auroc": 0.6412106091012638,
+      "detected": true,
+      "detection_latency_sec": 4.6000000000000005
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-14-37-22_3_left_aileron_failure",
+      "has_fault": true,
+      "auroc": 0.7184899628602323,
+      "detected": true,
+      "detection_latency_sec": 3.2
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-15-52-12_3_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9344904950303965,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-15-55-10_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9539299242424242,
+      "detected": true,
+      "detection_latency_sec": 0.2
+    },
+    {
+      "sequence": "carbonZ_2018-10-05-16-04-46_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9670886075949366,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-03-57_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9934839376215152,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-00_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9768199750067383,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-08_1_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9507325929393076,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-08_2_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9685231829340377,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-04-35_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9949537641845334,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    },
+    {
+      "sequence": "carbonZ_2018-10-18-11-06-06_engine_failure_with_emr_traj",
+      "has_fault": true,
+      "auroc": 0.9476788647821899,
+      "detected": true,
+      "detection_latency_sec": 0.0
+    }
+  ]
+}

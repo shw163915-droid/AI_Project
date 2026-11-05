@@ -49,6 +49,7 @@ def _compat_graph_layer_init(self, *args, **kwargs):
 
 
 gl.GraphLayer.__init__ = _compat_graph_layer_init
+gl.add_self_loops = lambda edge_index, num_nodes=None: (edge_index, None)
 
 # 3. 원본 GDN 모듈 import
 from util.env import get_device, set_device
@@ -139,6 +140,7 @@ def _enable_cross_sensor_gdn_forward():
             cos_ji_mat = cos_ji_mat / (normed_mat + 1e-8)
 
             topk_num = self.topk
+            cos_ji_mat.fill_diagonal_(float("-inf")) 
             topk_indices_ji = torch.topk(cos_ji_mat, topk_num, dim=-1)[1]
             self.learned_graph = topk_indices_ji
 
